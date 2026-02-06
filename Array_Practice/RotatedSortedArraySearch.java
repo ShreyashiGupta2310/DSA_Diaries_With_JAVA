@@ -33,11 +33,23 @@ public class RotatedSortedArraySearch {
        
         
     // }
-    public static int searchTarget(int array[] ,int target){
-    for(int i=0;i<array.length;i++){
-        if(array[i]==target)
-            return i;
-    }
+public static int searchTarget(int array[] ,int target){
+   int  start=array[0];
+   int i=0;
+   while(start<=(start+1)){
+
+    if(start==target)
+        return i;
+    start=start+1;
+    i++;
+   }
+   while(start>(start+1))
+{
+     if(start==target)
+        return i;
+    start=start+1;
+    i++;
+}
        
         return -1;
     }      
@@ -45,21 +57,84 @@ public class RotatedSortedArraySearch {
         int array[]={4, 5, 6, 7, 0, 1, 2};
         int target = 0;
        int index= searchTarget(array,target);
-       System.out.println("index of the rotated sorted array :"+ index);
+       System.out.println("index of the rotated sorted array's target :"+ index);
     }
 }
 
 
-// What current code is doing
+// My Thought Process 
+// 1. What the problem says
 
-//  searchTarget() is a simple linear search
+// The array was sorted earlier.
 
-// Time complexity right now is O(n) --> which is a problem now
+// Then it was rotated from some point, so it looks unsorted now.
 
-// It works correctly for finding the target index
+// I need to find a target element’s index.
 
-// But it does NOT use the rotated-sorted-array property at all
+// The solution must be fast (O(log n)).
 
-// So at the moment,  code is solving:
-//  “Search an element in an array”
-//  Not yet: Search in Rotated Sorted Array (O(log n))
+// 2. My first confusion
+
+// Binary search works on sorted arrays.
+
+// But after rotation, the array does not look sorted.
+
+// So I was confused about how binary search can still work.
+
+// 3. First working approach
+
+// I used linear search to find the target.
+
+// It gives the correct answer.
+
+// But it takes O(n) time, which is not allowed for this problem.
+
+// 4. Thinking about rotation
+
+// I wondered if the target is always at the point where order breaks.
+
+// Later I understood:
+
+// the target can be anywhere
+
+// rotation only helps decide which side to search
+
+// 5. My wrong attempt
+
+// I tried to follow the array step by step using values.
+
+// I confused values with indices.
+
+// This still behaved like linear search and didn’t reduce the search space.
+
+// 6. Important realization
+
+// Even after rotation:
+
+// the array is not fully unsorted
+
+// one part is always sorted
+
+// This means binary search is still possible.
+
+// 7. What I understand now
+
+// I should not walk through the array.
+
+// I must:
+
+// check which half is sorted
+
+// decide if the target can be in that half
+
+// discard the other half
+
+// This keeps the time complexity O(log n).
+
+// 8. Why I’m committing this
+
+// This commit shows my learning journey.
+
+// I am building understanding first,
+
+// then I will write the optimized solution.
