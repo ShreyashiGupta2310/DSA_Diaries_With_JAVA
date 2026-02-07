@@ -34,20 +34,20 @@ public class RotatedSortedArraySearch {
         
     // }
 public static int searchTarget(int array[] ,int target){
-   int  start=array[0];
+   
    int i=0;
-   while(start<=(start+1)){
+   while(array[i]<=(array[i+1])){
 
-    if(start==target)
+    if(array[i]==target)
         return i;
-    start=start+1;
+    
     i++;
    }
-   while(start>(start+1))
+   while(array[i]>(array[i+1]))
 {
-     if(start==target)
+     if(array[i]==target)
         return i;
-    start=start+1;
+    
     i++;
 }
        
@@ -63,78 +63,31 @@ public static int searchTarget(int array[] ,int target){
 
 
 // My Thought Process 
-// 1. What the problem says
 
-// The array was sorted earlier.
+// I knew the array was sorted before rotation.
 
-// Then it was rotated from some point, so it looks unsorted now.
+// After rotation, the array looks partly sorted and partly broken.
 
-// I need to find a target element’s index.
+// I tried to:
 
-// The solution must be fast (O(log n)).
+// move through the array
 
-// 2. My first confusion
+// check where the ascending order breaks
 
-// Binary search works on sorted arrays.
+// My idea was:
 
-// But after rotation, the array does not look sorted.
+// search the target in the increasing part first
 
-// So I was confused about how binary search can still work.
+// then search after the break point
 
-// 3. First working approach
+// This helped me understand how rotation changes the array.
 
-// I used linear search to find the target.
+// What I learned
 
-// It gives the correct answer.
+// Even though this approach works like a normal scan,
 
-// But it takes O(n) time, which is not allowed for this problem.
+// it is still linear search (O(n)).
 
-// 4. Thinking about rotation
+// To meet the problem requirement,
 
-// I wondered if the target is always at the point where order breaks.
-
-// Later I understood:
-
-// the target can be anywhere
-
-// rotation only helps decide which side to search
-
-// 5. My wrong attempt
-
-// I tried to follow the array step by step using values.
-
-// I confused values with indices.
-
-// This still behaved like linear search and didn’t reduce the search space.
-
-// 6. Important realization
-
-// Even after rotation:
-
-// the array is not fully unsorted
-
-// one part is always sorted
-
-// This means binary search is still possible.
-
-// 7. What I understand now
-
-// I should not walk through the array.
-
-// I must:
-
-// check which half is sorted
-
-// decide if the target can be in that half
-
-// discard the other half
-
-// This keeps the time complexity O(log n).
-
-// 8. Why I’m committing this
-
-// This commit shows my learning journey.
-
-// I am building understanding first,
-
-// then I will write the optimized solution.
+// I need to discard half of the array at every step, not move one by one.
