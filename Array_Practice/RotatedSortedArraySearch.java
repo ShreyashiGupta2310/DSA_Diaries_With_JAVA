@@ -27,67 +27,62 @@
 package Array_Practice;
 
 public class RotatedSortedArraySearch {
-    // public static void rotateArray(int array[]){
-    //   int pivot=3;
-
-       
-        
-    // }
-public static int searchTarget(int array[] ,int target){
    
-   int i=0;
-   while(array[i]<=(array[i+1])){
+ // Main search function
+    public static int search(int[] nums, int target) {
 
-    if(array[i]==target)
-        return i;
-    
-    i++;
-   }
-   while(array[i]>(array[i+1]))
-{
-     if(array[i]==target)
-        return i;
-    
-    i++;
-}
-       
+        // Step 1: find index of minimum element
+        int min = minSearch(nums);
+
+        // Step 2: decide which part to apply binary search
+        if (nums[min] <= target && target <= nums[nums.length - 1]) {
+            // search in right sorted part
+            return Binary_Search(nums, min, nums.length - 1, target);
+        } else {
+            // search in left sorted part
+            return Binary_Search(nums, 0, min - 1, target);
+        }
+    }     
+
+     // Normal binary search
+    public static int Binary_Search(int[] nums, int left, int right, int target) {
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] == target) {
+                return mid;
+            } else if (nums[mid] > target) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
         return -1;
-    }      
+    }
+
+   // Find index of smallest element (pivot)
+    public static int minSearch(int[] nums) {
+
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] > nums[right]) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return left;
+    }
     public static void main(String args[]){
         int array[]={4, 5, 6, 7, 0, 1, 2};
         int target = 0;
-       int index= searchTarget(array,target);
+       int index= search(array,target);
        System.out.println("index of the rotated sorted array's target :"+ index);
     }
 }
 
-
-// My Thought Process 
-
-// I knew the array was sorted before rotation.
-
-// After rotation, the array looks partly sorted and partly broken.
-
-// I tried to:
-
-// move through the array
-
-// check where the ascending order breaks
-
-// My idea was:
-
-// search the target in the increasing part first
-
-// then search after the break point
-
-// This helped me understand how rotation changes the array.
-
-// What I learned
-
-// Even though this approach works like a normal scan,
-
-// it is still linear search (O(n)).
-
-// To meet the problem requirement,
-
-// I need to discard half of the array at every step, not move one by one.
