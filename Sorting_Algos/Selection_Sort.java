@@ -5,13 +5,16 @@ public class Selection_Sort {
        
   
         for(int Turn=0;Turn<array.length-1-1;Turn++){
-             int min=Integer.MAX_VALUE;
-             for(int j=0;j<array.length-1;j++){
-                if(array[j]<min){
-                    min=array[j];
-                    // array[Turn]=min;
+             int min=Turn;
+             for(int j=Turn+1;j<array.length-1;j++){
+                if(array[min]>array[j]){
+                    min=j;
+                    
                 }
              }
+             int temp=array[min];
+             array[min]=array[Turn];
+             array[Turn]=temp;
         }
     }
     public static void print(int array[]){
