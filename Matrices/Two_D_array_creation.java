@@ -50,7 +50,7 @@ public static boolean search(int[][] array,int element){
              System.out.println();
         }
 
-      boolean p= search(matrix,6);
+  search(matrix,6);
       
 
     }
