@@ -4,15 +4,15 @@ public class Search_in_sorted_matrix {
     public static boolean Search(int matrix[][],int key){
         int row=0;
         int col=matrix[0].length-1;
-        while(row>=0 && col>=matrix[0].length-1){
+        while(row<matrix.length && col>0){
             if(matrix[row][col]==key){
                 System.out.print("key"+key+" found at "+"("+row +","+col +")");
                 return true;
             }
             else if(key>matrix[row][col])
                 row++;
-            else if(key<matrix[row][col])
-                col--;
+            else 
+            col--;
         }
         System.out.println("key not found");
         return false;
